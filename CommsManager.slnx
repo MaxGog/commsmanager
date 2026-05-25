@@ -2,6 +2,8 @@
   <Folder Name="/CommsManager/">
     <Project Path="CommsManager.Core/CommsManager.Core.csproj" />
     <Project Path="CommsManager.Infrastructure/CommsManager.Infrastructure.csproj" />
+    <Project Path="CommsManager.Application/CommsManager.Application.csproj" />
+    <Project Path="CommsManager.API/CommsManager.API.csproj" />
     <Project Path="CommsManager.Shared/CommsManager.Shared.csproj" />
     <Project Path="CommsManager.Web/CommsManager.Web.csproj" />
     <Project Path="CommsManager.Maui/CommsManager.Maui.csproj" />
