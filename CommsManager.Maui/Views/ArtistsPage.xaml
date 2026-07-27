@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommsManager.Maui.Views.ArtistsPage"
              xmlns:viewmodels="clr-namespace:CommsManager.Maui.ViewModels"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Художники">
 
     <ContentPage.BindingContext>
@@ -22,11 +23,11 @@
                        Text="{Binding SearchText}"
                        Placeholder="Поиск художников..."
                        ReturnCommand="{Binding SearchCommand}">
-                    <Entry.Behaviors>
+                    <!--<Entry.Behaviors>
                         <CommunityToolkit.Maui.Behaviors.EventToCommandBehavior
                             EventName="TextChanged"
                             Command="{Binding SearchCommand}"/>
-                    </Entry.Behaviors>
+                    </Entry.Behaviors>-->
                 </Entry>
 
                 <Button Grid.Column="1"

@@ -5,6 +5,7 @@
              xmlns:viewmodels="clr-namespace:CommsManager.Maui.ViewModels"
              xmlns:models="clr-namespace:CommsManager.Maui.Data.Models"
              xmlns:converters="clr-namespace:CommsManager.Maui.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Заказы"
              x:DataType="viewmodels:OrdersViewModel">
 
@@ -33,11 +34,11 @@
                            Text="{Binding SearchText}"
                            Placeholder="Поиск заказов..."
                            ReturnCommand="{Binding ApplyFiltersCommand}">
-                        <Entry.Behaviors>
+                        <!--<Entry.Behaviors>
                             <CommunityToolkit.Maui.Behaviors.EventToCommandBehavior
                                 EventName="TextChanged"
                                 Command="{Binding ApplyFiltersCommand}"/>
-                        </Entry.Behaviors>
+                        </Entry.Behaviors>-->
                     </Entry>
 
                     <Button Grid.Column="1"
@@ -53,21 +54,21 @@
                             Title="Статус"
                             ItemsSource="{Binding StatusOptions}"
                             SelectedItem="{Binding SelectedStatus}">
-                        <Picker.Behaviors>
+                        <!--<Picker.Behaviors>
                             <CommunityToolkit.Maui.Behaviors.EventToCommandBehavior
                                 EventName="SelectedIndexChanged"
                                 Command="{Binding ApplyFiltersCommand}"/>
-                        </Picker.Behaviors>
+                        </Picker.Behaviors>-->
                     </Picker>
 
                     <DatePicker Grid.Column="1"
                                 Date="{Binding SelectedDate}"
                                 Format="dd.MM.yyyy">
-                        <DatePicker.Behaviors>
+                        <!--<DatePicker.Behaviors>
                             <CommunityToolkit.Maui.Behaviors.EventToCommandBehavior
                                 EventName="DateSelected"
                                 Command="{Binding ApplyFiltersCommand}"/>
-                        </DatePicker.Behaviors>
+                        </DatePicker.Behaviors>-->
                     </DatePicker>
                 </Grid>
             </VerticalStackLayout>

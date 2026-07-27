@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="CommsManager.Maui.Views.CustomersPage"
              xmlns:viewmodels="clr-namespace:CommsManager.Maui.ViewModels"
+             xmlns:models="clr-namespace:CommsManager.Maui.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              Title="Клиенты"
              x:DataType="viewmodels:CustomersViewModel">
 
@@ -19,11 +21,11 @@
                     Text="{Binding SearchText}"
                     Placeholder="Поиск клиентов..."
                     ReturnCommand="{Binding SearchCommand}">
-                    <Entry.Behaviors>
+                    <!--<Entry.Behaviors>
                         <CommunityToolkit.Maui.Behaviors.EventToCommandBehavior
                             EventName="TextChanged"
                             Command="{Binding SearchCommand}"/>
-                    </Entry.Behaviors>
+                    </Entry.Behaviors>-->
                 </Entry>
 
                 <Button Grid.Column="1"
@@ -77,7 +79,7 @@
                                         <FormattedString>
                                             <Span Text="{Binding Name, Converter={StaticResource FirstLetterConverter}}"
                                                 FontAttributes="Bold"/>
-                                            <Span Text="{Binding Name, Converter={StaticResource SecondLetterConverter}}"/>
+                                            <Span Text="{Binding Name, Converter={StaticResource FirstLetterConverter}}"/>
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>

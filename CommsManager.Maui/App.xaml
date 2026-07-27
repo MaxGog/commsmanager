@@ -2,16 +2,14 @@
 <Application xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:CommsManager"
+             xmlns:converters="clr-namespace:CommsManager.Maui.Converters"
              x:Class="CommsManager.App">
     <Application.Resources>
         <ResourceDictionary>
-
-            <!--
-                For information about styling .NET MAUI pages
-                please refer to the documentation:
-                https://go.microsoft.com/fwlink/?linkid=2282329
-            -->
-
+            <converters:FirstLetterConverter x:Key="FirstLetterConverter"/>
+            <converters:ActiveStatusConverter x:Key="ActiveStatusConverter"/>
+            <converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
+            <converters:ActiveStatusConverter x:Key="ActiveColorConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
