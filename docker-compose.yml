@@ -1,0 +1,42 @@
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P ${DB_PASSWORD} -Q "SELECT 1" || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: CommsManager.API/Dockerfile
+    ports:
+      - "5000:80"
+    depends_on:
+      sqlserver:
+        condition: service_healthy
+    environment:
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=CommsManagerDb;User=sa;Password=${DB_PASSWORD};TrustServerCertificate=True
+
+  web:
+    build:
+      context: .
+      dockerfile: CommsManager.Web/Dockerfile
+    ports:
+      - "5001:80"
+    depends_on:
+      - api
+    environment:
+      - ApiBaseUrl=http://api:5000
+
+volumes:
+  sql_data:
+  

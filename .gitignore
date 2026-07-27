@@ -82,3 +82,4 @@ coverage.cobertura.xml
 ## Temp
 tmp/
 temp/
+.fake

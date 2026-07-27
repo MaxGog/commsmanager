@@ -56,11 +56,22 @@ CommsManager/
 | **Entity Framework Core** | ORM и работа с БД | 10.0 |
 | **SQL Server** | Базы данных | 2022 |
 
-## 🙏 Благодарности
+## 🐳 Запуск с Docker
 
-- [.NET Foundation](https://dotnetfoundation.org/) за прекрасную платформу
-- [Microsoft MAUI Team](https://github.com/dotnet/maui) за фреймворк
-- Сообществу Blazor за вдохновение
+Для быстрого развёртывания всех сервисов (API, Web, база данных) используйте Docker Compose.
+
+### Предварительные требования
+- Docker Desktop (или Docker Engine + Compose)
+- (опционально) .NET 10 SDK для локальной разработки
+
+### Настройка
+1. Скопируйте файл `.env.example` в `.env` и задайте пароль для БД.
+2. Убедитесь, что порты 5000, 5001, 1433 свободны.
+
+### Запуск
+```bash
+docker-compose up -d --build
+```
 
 ## 📞 Контакты
 
