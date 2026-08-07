@@ -1,21 +1,34 @@
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
 using CommsManager.Maui.ViewModels;
+using CommsManager.Maui.Data.Models;
 
 namespace CommsManager.Maui.Views;
 
-public partial class CustomerDetailPage : ContentPage
+public partial class CustomerDetailPage : ContentPage, IQueryAttributable
 {
-    public CustomerDetailPage(CustomersViewModel viewModel)
+    private readonly CustomerDetailViewModel _viewModel;
+
+    public CustomerDetailPage() : this(App.Services.GetRequiredService<CustomerDetailViewModel>())
     {
-        InitializeComponent();
-        BindingContext = viewModel;
     }
 
-    protected override void OnAppearing()
+    public CustomerDetailPage(CustomerDetailViewModel viewModel)
     {
-        base.OnAppearing();
-        if (BindingContext is CustomersViewModel vm)
+        InitializeComponent();
+        _viewModel = viewModel;
+        BindingContext = _viewModel;
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query.TryGetValue("Customer", out var customerObject) && customerObject is LocalCustomer customer)
         {
-            vm.LoadCustomersCommand.Execute(null);
+            _viewModel.Initialize(customer);
+        }
+        else
+        {
+            _viewModel.Initialize();
         }
     }
 }

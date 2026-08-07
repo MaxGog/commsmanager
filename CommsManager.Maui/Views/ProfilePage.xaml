@@ -108,30 +108,34 @@
                        FontAttributes="Bold"/>
 
                 <Button Text="Экспорт данных"
+                        Command="{Binding ExportDataCommand}"
                         BackgroundColor="#4CAF50"
                         TextColor="White"
                         CornerRadius="5"
                         HeightRequest="45"/>
-
+ 
                 <Button Text="Импорт данных"
+                        Command="{Binding ImportDataCommand}"
                         BackgroundColor="#2196F3"
                         TextColor="White"
                         CornerRadius="5"
                         HeightRequest="45"/>
-
+ 
                 <Button Text="Синхронизировать"
+                        Command="{Binding SyncDataCommand}"
                         BackgroundColor="#FF9800"
                         TextColor="White"
                         CornerRadius="5"
                         HeightRequest="45"/>
-
+ 
                 <Button Text="Настройки"
                         BackgroundColor="#9C27B0"
                         TextColor="White"
                         CornerRadius="5"
                         HeightRequest="45"/>
-
+ 
                 <Button Text="Очистить кеш"
+                        Command="{Binding ClearCacheCommand}"
                         BackgroundColor="#F44336"
                         TextColor="White"
                         CornerRadius="5"

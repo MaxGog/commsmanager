@@ -111,18 +111,16 @@
                             <VerticalStackLayout Grid.Column="3"
                                 VerticalOptions="Center"
                                 Spacing="5">
-                                <!--<ImageButton Source="edit.png"
-                                    HeightRequest="30"
-                                    WidthRequest="30"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CustomersViewModel}}, 
-                                                    Path=EditCustomerCommand}"
-                                    CommandParameter="{Binding .}"/>-->
-                                <!--<ImageButton Source="delete.png"
-                                    HeightRequest="30"
-                                    WidthRequest="30"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:CustomersViewModel}}, 
-                                                    Path=DeleteCustomerCommand}"
-                                    CommandParameter="{Binding .}"/>-->
+                                <Button Text="✎"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCustomerCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                <Button Text="✕"
+                                    WidthRequest="40"
+                                    HeightRequest="40"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCustomerCommand}"
+                                    CommandParameter="{Binding .}"/>
                             </VerticalStackLayout>
 
                         </Grid>

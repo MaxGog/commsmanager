@@ -9,10 +9,6 @@
              Title="Заказы"
              x:DataType="viewmodels:OrdersViewModel">
 
-    <ContentPage.BindingContext>
-        <viewmodels:OrdersViewModel/>
-    </ContentPage.BindingContext>
-
     <ContentPage.Resources>
         <converters:OrderStatusColorConverter x:Key="StatusColorConverter"/>
         <converters:DateTimeFormatConverter x:Key="DateTimeConverter"/>
@@ -173,8 +169,7 @@
                                 <ImageButton Source="edit.png"
                                     HeightRequest="30"
                                     WidthRequest="30"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodels:OrdersViewModel}}, 
-                                                    Path=EditOrderCommand}"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditOrderCommand}"
                                     CommandParameter="{Binding .}"/>
                                 <Label Text="{Binding Status}"
                                     FontSize="10"

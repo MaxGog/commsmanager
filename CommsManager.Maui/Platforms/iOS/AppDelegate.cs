@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace CommsManager;
+namespace CommsManager.Maui;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

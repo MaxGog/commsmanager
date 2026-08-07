@@ -10,6 +10,7 @@
             <converters:ActiveStatusConverter x:Key="ActiveStatusConverter"/>
             <converters:DateTimeFormatConverter x:Key="DateTimeFormatConverter"/>
             <converters:ActiveStatusConverter x:Key="ActiveColorConverter"/>
+            <converters:CountToVisibilityConverter x:Key="CountToVisibilityConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

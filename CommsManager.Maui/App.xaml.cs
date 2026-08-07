@@ -7,10 +7,13 @@ namespace CommsManager;
 public partial class App : Application
 {
     private readonly IServiceProvider _serviceProvider;
+    public static IServiceProvider Services { get; private set; } = null!;
+
     public App(IServiceProvider serviceProvider)
     {
         InitializeComponent();
         _serviceProvider = serviceProvider;
+        Services = serviceProvider;
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

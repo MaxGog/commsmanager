@@ -73,7 +73,7 @@ public partial class ArtistsViewModel : ObservableObject
 
     private async Task AddArtistAsync()
     {
-        //await Shell.Current.GoToAsync(nameof(ArtistDetailPage));
+        await Shell.Current.GoToAsync("ArtistDetailPage");
     }
 
     private async Task EditArtistAsync(LocalArtistProfile? artist)
@@ -82,10 +82,10 @@ public partial class ArtistsViewModel : ObservableObject
 
         var parameters = new Dictionary<string, object>
         {
-            ["Artist"] = artist
+            { "Artist", artist }
         };
 
-        //await Shell.Current.GoToAsync(nameof(ArtistDetailPage), parameters);
+        await Shell.Current.GoToAsync("ArtistDetailPage", parameters);
     }
 
     [Obsolete]
@@ -130,11 +130,6 @@ public partial class ArtistsViewModel : ObservableObject
             return;
         }
 
-        var parameters = new Dictionary<string, object>
-        {
-            ["ArtistId"] = SelectedArtist.Id
-        };
-
-        //await Shell.Current.GoToAsync(nameof(CommissionDetailPage), parameters);
+        await Shell.Current.DisplayAlert("В разработке", "Добавление комиссии пока не реализовано.", "OK");
     }
 }

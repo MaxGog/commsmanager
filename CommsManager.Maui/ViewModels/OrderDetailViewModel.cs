@@ -21,10 +21,25 @@ public partial class OrderDetailViewModel : ObservableObject
     private List<LocalArtistProfile> _artists = new();
 
     [ObservableProperty]
+    private LocalCustomer? _selectedCustomer;
+
+    [ObservableProperty]
+    private LocalArtistProfile? _selectedArtist;
+
+    [ObservableProperty]
     private bool _isNewOrder = true;
 
     [ObservableProperty]
     private bool _isSaving;
+
+    public List<string> StatusOptions { get; } =
+    [
+        "New",
+        "InProgress",
+        "Pending",
+        "Completed",
+        "Cancelled"
+    ];
 
     public OrderDetailViewModel(DatabaseService databaseService, IDialogService dialogService)
     {
@@ -55,19 +70,42 @@ public partial class OrderDetailViewModel : ObservableObject
             {
                 Id = Guid.NewGuid(),
                 CreatedDate = DateTime.UtcNow,
+                Deadline = DateTime.Today.AddDays(1),
                 Status = "New",
                 IsActive = true
             };
             IsNewOrder = true;
         }
-
-        LoadCustomersAndArtists();
     }
 
-    private async Task LoadCustomersAndArtists()
+    public async Task LoadCustomersAndArtistsAsync()
     {
         Customers = await _databaseService.GetCustomersAsync();
         Artists = await _databaseService.GetArtistProfilesAsync();
+
+        if (Order != null)
+        {
+            SelectedCustomer = Customers.FirstOrDefault(c => c.Id == Order.CustomerId);
+            SelectedArtist = Artists.FirstOrDefault(a => a.Id == Order.ArtistId);
+        }
+    }
+
+    partial void OnSelectedCustomerChanged(LocalCustomer? value)
+    {
+        if (value != null)
+        {
+            Order.CustomerId = value.Id;
+            Order.Customer = value;
+        }
+    }
+
+    partial void OnSelectedArtistChanged(LocalArtistProfile? value)
+    {
+        if (value != null)
+        {
+            Order.ArtistId = value.Id;
+            Order.Artist = value;
+        }
     }
 
     private async Task SaveOrderAsync()

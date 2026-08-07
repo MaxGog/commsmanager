@@ -103,12 +103,7 @@ public partial class OrdersViewModel : ObservableObject
 
     private async Task AddOrderAsync()
     {
-        var parameters = new Dictionary<string, object>
-        {
-            ["Mode"] = "Create"
-        };
-
-        //await Shell.Current.GoToAsync(nameof(OrderDetailPage), parameters);
+        await Shell.Current.GoToAsync("OrderDetailPage");
     }
 
     private async Task EditOrderAsync(LocalOrder? order)
@@ -117,11 +112,10 @@ public partial class OrdersViewModel : ObservableObject
 
         var parameters = new Dictionary<string, object>
         {
-            ["Order"] = order,
-            ["Mode"] = "Edit"
+            { "Order", order }
         };
 
-        //await Shell.Current.GoToAsync(nameof(OrderDetailPage), parameters);
+        await Shell.Current.GoToAsync("OrderDetailPage", parameters);
     }
 
     private async Task DeleteOrderAsync(LocalOrder? order)
