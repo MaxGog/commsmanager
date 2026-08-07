@@ -18,9 +18,10 @@ builder.Services.AddApplication();
 // Authentication: JWT
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultAuthenticateScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = Microsoft.AspNetCore.Authentication.JwtBearer.JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
+    // Use "Bearer" scheme string to avoid direct dependency on JwtBearer constants
+    options.DefaultAuthenticateScheme = "Bearer";
+    options.DefaultChallengeScheme = "Bearer";
+}).AddJwtBearer("Bearer", options =>
 {
     options.RequireHttpsMetadata = false;
     options.SaveToken = true;
