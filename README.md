@@ -66,11 +66,14 @@ CommsManager/
    ```
 
 2. **Set up environment variables:**
-   Copy `.env.example` to `.env` and set a password for SQL Server:
+   Copy `.env.example` to `.env` and set a password for SQL Server and (optionally) a Jwt key for development:
    ```bash
    cp .env.example .env
    # Edit .env, set DB_PASSWORD=YourStrong!Passw0rd
+   # OPTIONAL for local dev: set JWT_KEY to a secure 32+ byte value
    ```
+
+   Important: do NOT commit secrets (Jwt key, DB passwords) to the repository.
 
 3. **Start all services:**
    ```bash
@@ -111,18 +114,74 @@ CommsManager/
 
 ---
 
+## 🧭 Authentication & Web UI
+
+This repository includes a simple authentication flow (aligned with Clean Architecture) with two user roles:
+
+- `Client` — default role when a user registers.
+- `Creator` — a promoted role. Clients can be promoted to Creator; creators cannot be downgraded back to Client (business rule). A Creator may still act as a Client for other Creators' interactions where business logic allows it.
+
+Implemented endpoints (API):
+
+- `POST /api/auth/register` — register (returns JWT token)
+- `POST /api/auth/login` — login (returns JWT token)
+- `POST /api/auth/promote` — promote current user to Creator (requires authentication)
+
+Web UI (manual testing):
+
+- `/register` — register a new user. After success the typed HttpClient sets Authorization header.
+- `/login` — login and set Authorization header for subsequent requests.
+
+JWT configuration:
+- The API reads the following settings from configuration / environment: `Jwt:Key`, `Jwt:Issuer`, `Jwt:ExpiryMinutes`.
+- For HS256, Jwt:Key must be sufficiently long (at least 32 bytes / 256 bits). For development you can set JWT_KEY in `.env` and wire it into the API container environment.
+
+Example (use token in Swagger):
+1. Register via Web or `POST /api/auth/register`.
+2. Copy returned token and click "Authorize" in Swagger (bearer token).
+3. Call protected endpoints (e.g., `GET /api/test/me`).
+
+---
+
+## 🗄️ Migrations & Database
+
+The project uses EF Core migrations (located in `CommsManager.Infrastructure/Migrations`).
+
+If developing on macOS/Linux where LocalDB is not available, apply migrations to the SQL Server running in Docker using an explicit connection string:
+
+```bash
+# Example (when Docker Compose is running and DB_PASSWORD is set in .env)
+export DB_PASSWORD=YourStrong!Passw0rd
+dotnet ef database update --project CommsManager.Infrastructure --connection "Server=localhost,1433;Database=CommsManagerDb;User=sa;Password=${DB_PASSWORD};TrustServerCertificate=True;"
+```
+
+Alternatively, run migrations from inside a container that has dotnet SDK installed and network access to the sqlserver container.
+
+---
+
 ## 🧪 Testing
 
-The project is covered with unit and integration tests. Run them with:
+Run all tests in the repository:
+
 ```bash
 dotnet test
 ```
+
+Or run a specific test project for speed (auth unit tests):
+
+```bash
+dotnet test tests/CommsManager.Application.Tests
+```
+
+Notes:
+- Authentication unit tests are in `tests/CommsManager.Application.Tests` and validate register/login flows.
+- When running tests locally, the test configuration sets a long-enough Jwt key. Ensure any custom test config follows the same requirement.
 
 ---
 
 ## 🤝 How to Contribute
 
-We welcome any contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) to learn about commit message guidelines, pull request process, and code style.
+We welcome contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) to learn about commit message guidelines, pull request process, and code style.
 
 **Quick checklist:**
 - Fork the repository and create a branch for your changes.
@@ -132,19 +191,12 @@ We welcome any contributions! Please read [CONTRIBUTING.md](CONTRIBUTING.md) to 
 
 ---
 
-## 📄 License
+## 📄 License & Contact
 
 This project is distributed under the MIT license. See [LICENSE](LICENSE) for details.
 
----
-
-## 📞 Contact & Support
-
-- **Author:** Maxim Goglov
-- **Email:** [max.gog2005@outlook.com](mailto:max.gog2005@outlook.com)
-- **Telegram:** [@maxgog](https://t.me/maxgog)
+- **Author:** Maxim Goglov — [max.gog2005@outlook.com](mailto:max.gog2005@outlook.com)
 - **Report an issue:** [GitHub Issues](https://github.com/MaxGog/CommsManager/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/MaxGog/CommsManager/discussions)
 
 ---
 
