@@ -29,6 +29,7 @@ public static class DependencyInjection
         services.AddScoped<IOrderService, OrderService>();
         services.AddScoped<ICustomerService, CustomerService>();
         services.AddScoped<IArtistProfileService, ArtistProfileService>();
+        services.AddScoped<CommsManager.Application.Interfaces.IAuthService, CommsManager.Application.Services.AuthService>();
 
         return services;
     }
