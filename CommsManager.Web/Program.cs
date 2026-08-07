@@ -10,6 +10,14 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<MockDataService>();
 
+// Auth HttpClient + service. Api url is read from configuration (API_URL env or ApiBaseUrl)
+var apiUrl = builder.Configuration["API_URL"] ?? builder.Configuration["ApiBaseUrl"] ?? "http://localhost:5000";
+builder.Services.AddHttpClient<AuthService>(client =>
+{
+    client.BaseAddress = new Uri(apiUrl);
+});
+builder.Services.AddSingleton<AuthService>();
+
 // Add device-specific services used by the CommsManager.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
 

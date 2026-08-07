@@ -1,0 +1,42 @@
+@page "/login"
+@using CommsManager.Application.DTOs.Auth
+@inject CommsManager.Web.Services.AuthService Auth
+@inject NavigationManager Navigation
+
+<h3>Вход</h3>
+
+<div class="mb-3">
+    <label class="form-label">Email</label>
+    <input class="form-control" @bind="_email" />
+</div>
+<div class="mb-3">
+    <label class="form-label">Пароль</label>
+    <input type="password" class="form-control" @bind="_password" />
+</div>
+<button class="btn btn-primary" @onclick="OnLogin">Войти</button>
+
+@if (!string.IsNullOrEmpty(_message))
+{
+    <div class="alert alert-info mt-3">@_message</div>
+}
+
+@code {
+    private string _email = string.Empty;
+    private string _password = string.Empty;
+    private string? _message;
+
+    private async Task OnLogin()
+    {
+        try
+        {
+            var dto = new LoginDto { Email = _email, Password = _password };
+            var resp = await Auth.LoginAsync(dto);
+            _message = "Успешно. Токен получен.";
+            Navigation.NavigateTo("/");
+        }
+        catch (Exception ex)
+        {
+            _message = ex.Message;
+        }
+    }
+}
