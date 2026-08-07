@@ -1,0 +1,36 @@
+# Ignore build outputs
+bin/
+obj/
+**/bin/
+**/obj/
+
+# Visual Studio & editor folders
+.vs/
+.vscode/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet / packages
+*.nupkg
+.packages/
+.nuget/
+packages/
+
+# Logs and databases
+*.log
+*.db
+
+# Docker and environment
+.env
+.env.*
+docker-compose*.yml
+
+# Node
+node_modules/
+
+# Avoid sending git history to Docker context
+.git
