@@ -1,4 +1,4 @@
-﻿@using CommsManager.Shared.Services
+@using CommsManager.Shared.Services
 @inherits LayoutComponentBase
 
 <div class="page">
@@ -30,57 +30,23 @@
                     <i class="bi bi-device-phone"></i> @_formFactor
                 </div>
             </div>
-                <div class="nav-item mt-2">
-                    @if (_isAuthenticated)
-                    {
-                        <a class="nav-link" href="#" @onclick="Logout">Выйти (@_userEmail)</a>
-                    }
-                    else
-                    {
-                        <NavLink class="nav-link" href="/login">Вход</NavLink>
-                        <NavLink class="nav-link" href="/register">Регистрация</NavLink>
-                    }
-                </div>
-            </nav>
+        </nav>
     </div>
 
     <main>
-            <div class="top-row px-4">
-                <a href="https://learn.microsoft.com/aspnet/" target="_blank">О приложении</a>
+        <div class="top-row px-4 d-flex justify-content-between align-items-center">
+            <a href="https://learn.microsoft.com/aspnet/" target="_blank">О приложении</a>
+            <div>
+                <a class="btn btn-link" href="/login">Войти</a>
+                <a class="btn btn-primary ms-2" href="/register">Регистрация</a>
             </div>
+        </div>
 
-            <article class="content px-4">
-                @Body
-            </article>
+        <article class="content px-4">
+            @Body
+        </article>
     </main>
 </div>
-
-@code {
-    private string _formFactor = "";
-    private int _activeOrdersCount = 0;
-
-    [Inject] private IFormFactor FormFactorService { get; set; }
-    [Inject] private MockDataService DataService { get; set; }
-    [Inject] private CommsManager.Web.Services.AuthService AuthService { get; set; }
-
-    private bool _isAuthenticated = false;
-    private string? _userEmail;
-
-    protected override void OnInitialized()
-    {
-            _formFactor = $"{FormFactorService.GetFormFactor()} ({FormFactorService.GetPlatform()})";
-            _activeOrdersCount = DataService.GetActiveOrdersCount();
-            _isAuthenticated = AuthService.IsAuthenticated;
-            _userEmail = AuthService.Email;
-    }
-
-    private void Logout()
-    {
-            AuthService.Logout();
-            _isAuthenticated = false;
-            _userEmail = null;
-    }
-}
 
 @code {
     private string _formFactor = "";

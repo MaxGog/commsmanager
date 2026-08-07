@@ -28,6 +28,8 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+[Bb]in\Debug/
+[Bb]in\Release/
 
 ## Visual Studio
 .vs/

@@ -16,7 +16,6 @@ builder.Services.AddHttpClient<AuthService>(client =>
 {
     client.BaseAddress = new Uri(apiUrl);
 });
-builder.Services.AddSingleton<AuthService>();
 
 // Add device-specific services used by the CommsManager.Shared project
 builder.Services.AddSingleton<IFormFactor, FormFactor>();
